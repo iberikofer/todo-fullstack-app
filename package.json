@@ -1,0 +1,13 @@
+{
+  "name": "todo-fullstack-app",
+  "version": "1.0.0",
+  "description": "Full-Stack TODO application with Next.js 15, Express, Prisma, and PostgreSQL",
+  "scripts": {
+    "dev": "concurrently -n \"SERVER,CLIENT\" -c \"blue,green\" \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
