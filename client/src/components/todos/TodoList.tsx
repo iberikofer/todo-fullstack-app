@@ -49,6 +49,19 @@ export default function TodoList({
   }
 
   if (todos.length === 0) {
+    const getEmptyMessage = () => {
+      if (currentFilterLabel === 'Completed') {
+        return 'No completed tasks yet. Complete a task to see it here!';
+      }
+      if (currentFilterLabel === 'In Progress') {
+        return 'No tasks currently in progress. Start working on a task from your queue.';
+      }
+      if (currentFilterLabel === 'To Do') {
+        return 'No pending tasks in your To Do queue. Create one below to get started.';
+      }
+      return 'You are all caught up! Create your first task to start organizing.';
+    };
+
     return (
       <div className="rounded-2xl bg-white border border-[#22333B]/10 p-12 text-center shadow-xs">
         <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#5E8B7E]/10 text-[#5E8B7E] mb-4">
@@ -58,9 +71,7 @@ export default function TodoList({
           No tasks found
         </h3>
         <p className="text-sm text-[#22333B]/70 max-w-sm mx-auto mt-1.5 mb-6">
-          {currentFilterLabel
-            ? `You have no tasks matching the "${currentFilterLabel}" filter.`
-            : 'You are all caught up! Create a new task to get started.'}
+          {getEmptyMessage()}
         </p>
         <Button
           type="button"

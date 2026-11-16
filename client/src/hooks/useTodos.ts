@@ -34,4 +34,3 @@ export const useTodos = ({
     staleTime: 30 * 1000,
   });
 };
-
