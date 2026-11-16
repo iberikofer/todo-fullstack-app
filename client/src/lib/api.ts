@@ -16,8 +16,7 @@ api.interceptors.response.use(
       error.message ||
       'An unexpected error occurred. Please try again.';
     return Promise.reject(new Error(message));
-  }
+  },
 );
 
 export default api;
-

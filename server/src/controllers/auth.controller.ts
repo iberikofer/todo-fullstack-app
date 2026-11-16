@@ -19,7 +19,7 @@ const cookieOptions = {
 
 export const register = async (
   req: Request<{}, {}, RegisterInput>,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { name, email, password } = req.body;
@@ -66,7 +66,7 @@ export const register = async (
 
 export const login = async (
   req: Request<{}, {}, LoginInput>,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { email, password } = req.body;
@@ -150,4 +150,3 @@ export const getMe = async (req: AuthRequest, res: Response): Promise<void> => {
     res.status(500).json({ message: 'Internal server error fetching profile' });
   }
 };
-

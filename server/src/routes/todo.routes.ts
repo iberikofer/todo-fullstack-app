@@ -8,11 +8,7 @@ import {
 } from '../controllers/todo.controller';
 import { authenticate } from '../middleware/auth.middleware';
 import { validateBody } from '../middleware/validate.middleware';
-import {
-  createTodoSchema,
-  updateTodoSchema,
-  todoQuerySchema,
-} from '../schemas/todo.schema';
+import { createTodoSchema, updateTodoSchema } from '../schemas/todo.schema';
 
 const router = Router();
 

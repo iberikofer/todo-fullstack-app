@@ -4,14 +4,10 @@ import { AuthRequest } from '../middleware/auth.middleware';
 import {
   CreateTodoInput,
   UpdateTodoInput,
-  TodoQueryInput,
   todoQuerySchema,
 } from '../schemas/todo.schema';
 
-export const getTodos = async (
-  req: AuthRequest,
-  res: Response
-): Promise<void> => {
+export const getTodos = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const userId = req.userId!;
     const queryResult = todoQuerySchema.safeParse(req.query);
@@ -68,7 +64,7 @@ export const getTodos = async (
 
 export const getTodoById = async (
   req: AuthRequest,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const userId = req.userId!;
@@ -90,10 +86,7 @@ export const getTodoById = async (
   }
 };
 
-export const createTodo = async (
-  req: AuthRequest,
-  res: Response
-): Promise<void> => {
+export const createTodo = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const userId = req.userId!;
     const { title, description } = req.body as CreateTodoInput;
@@ -116,10 +109,7 @@ export const createTodo = async (
   }
 };
 
-export const updateTodo = async (
-  req: AuthRequest,
-  res: Response
-): Promise<void> => {
+export const updateTodo = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const userId = req.userId!;
     const id = String(req.params.id);
@@ -155,10 +145,7 @@ export const updateTodo = async (
   }
 };
 
-export const deleteTodo = async (
-  req: AuthRequest,
-  res: Response
-): Promise<void> => {
+export const deleteTodo = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const userId = req.userId!;
     const id = String(req.params.id);

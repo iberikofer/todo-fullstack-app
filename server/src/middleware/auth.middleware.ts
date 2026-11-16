@@ -8,7 +8,7 @@ export interface AuthRequest extends Request {
 export const authenticate = (
   req: AuthRequest,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void => {
   const token = req.cookies?.token;
 
@@ -33,4 +33,3 @@ export const authenticate = (
       .json({ message: 'Invalid or expired session. Please log in again.' });
   }
 };
-

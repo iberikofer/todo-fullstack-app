@@ -17,15 +17,21 @@ export default function HomePage() {
         <div className="rounded-xl bg-[#EFF3F1]/70 p-4 border border-[#22333B]/5 text-xs text-[#22333B]/80 mb-6 space-y-1.5 text-left">
           <div className="flex items-center justify-between">
             <span>Frontend (Next.js):</span>
-            <span className="font-semibold text-[#5E8B7E]">● Online (Port 3000)</span>
+            <span className="font-semibold text-[#5E8B7E]">
+              ● Online (Port 3000)
+            </span>
           </div>
           <div className="flex items-center justify-between">
             <span>Backend (Express):</span>
-            <span className="font-semibold text-[#5E8B7E]">● Online (Port 5000)</span>
+            <span className="font-semibold text-[#5E8B7E]">
+              ● Online (Port 5000)
+            </span>
           </div>
           <div className="flex items-center justify-between">
             <span>Database (PostgreSQL 17):</span>
-            <span className="font-semibold text-[#C7A17A]">● Ready for setup (Phase 2)</span>
+            <span className="font-semibold text-[#C7A17A]">
+              ● Ready for setup (Phase 2)
+            </span>
           </div>
         </div>
 
