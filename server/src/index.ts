@@ -3,6 +3,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes';
+import todoRoutes from './routes/todo.routes';
 
 dotenv.config();
 
@@ -25,6 +26,9 @@ app.get('/health', (_req: Request, res: Response) => {
 
 // Authentication routes
 app.use('/api/auth', authRoutes);
+
+// Todo routes
+app.use('/api/todos', todoRoutes);
 
 // Global 404 handler
 app.use((_req: Request, res: Response) => {
