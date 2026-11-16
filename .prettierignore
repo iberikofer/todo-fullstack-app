@@ -3,6 +3,7 @@ node_modules
 dist
 build
 package-lock.json
+next-env.d.ts
 *.db
 *.db-journal
 prisma/migrations
