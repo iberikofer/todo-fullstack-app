@@ -42,7 +42,7 @@ export const getTodos = async (req: AuthRequest, res: Response): Promise<void> =
         where,
         skip,
         take: limit,
-        orderBy: { createdAt: 'desc' },
+        orderBy: [{ isPinned: 'desc' }, { createdAt: 'desc' }],
       }),
       prisma.todo.count({ where }),
     ]);
@@ -89,12 +89,13 @@ export const getTodoById = async (
 export const createTodo = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const userId = req.userId!;
-    const { title, description } = req.body as CreateTodoInput;
+    const { title, description, isPinned } = req.body as CreateTodoInput;
 
     const todo = await prisma.todo.create({
       data: {
         title,
         description: description?.trim() ? description.trim() : null,
+        isPinned: isPinned ?? false,
         userId,
       },
     });
@@ -113,7 +114,7 @@ export const updateTodo = async (req: AuthRequest, res: Response): Promise<void>
   try {
     const userId = req.userId!;
     const id = String(req.params.id);
-    const { title, description, status } = req.body as UpdateTodoInput;
+    const { title, description, status, isPinned } = req.body as UpdateTodoInput;
 
     const existingTodo = await prisma.todo.findFirst({
       where: { id, userId },
@@ -132,6 +133,7 @@ export const updateTodo = async (req: AuthRequest, res: Response): Promise<void>
           description: description?.trim() ? description.trim() : null,
         }),
         ...(status !== undefined && { status }),
+        ...(isPinned !== undefined && { isPinned }),
       },
     });
 

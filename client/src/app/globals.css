@@ -26,10 +26,118 @@
   --font-mono: var(--font-geist-mono), monospace;
 }
 
+html {
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Metric Card Shimmer Animations */
+@keyframes card-shimmer {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.metric-shimmer-todo {
+  background: linear-gradient(
+    130deg,
+    #ffffff 0%,
+    rgba(34, 51, 59, 0.03) 25%,
+    rgba(34, 51, 59, 0.12) 50%,
+    rgba(34, 51, 59, 0.04) 75%,
+    #ffffff 100%
+  );
+  background-size: 250% 250%;
+  animation: card-shimmer 7s ease-in-out infinite;
+}
+
+.metric-shimmer-progress {
+  background: linear-gradient(
+    130deg,
+    #ffffff 0%,
+    rgba(199, 161, 122, 0.06) 25%,
+    rgba(199, 161, 122, 0.22) 50%,
+    rgba(199, 161, 122, 0.08) 75%,
+    #ffffff 100%
+  );
+  background-size: 250% 250%;
+  animation: card-shimmer 7s ease-in-out infinite;
+}
+
+.metric-shimmer-completed {
+  background: linear-gradient(
+    130deg,
+    #ffffff 0%,
+    rgba(94, 139, 126, 0.06) 25%,
+    rgba(94, 139, 126, 0.22) 50%,
+    rgba(94, 139, 126, 0.08) 75%,
+    #ffffff 100%
+  );
+  background-size: 250% 250%;
+  animation: card-shimmer 7s ease-in-out infinite;
+}
+
+/* Staggered Card Entrance when Data Loads */
+@keyframes card-cascade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-card-cascade {
+  animation: card-cascade-in 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Swipe-to-Right Deletion Animation */
+@keyframes task-swipe-right {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(115%);
+    opacity: 0;
+  }
+}
+
+.animate-task-swipe-right {
+  animation: task-swipe-right 0.32s cubic-bezier(0.2, 0, 0.2, 1) forwards !important;
+}
+
+/* Pin Reorder Jump Animation */
+@keyframes pin-jump {
+  0% {
+    transform: scale(1) translateY(0);
+  }
+  40% {
+    transform: scale(1.025) translateY(-8px);
+    box-shadow: 0 12px 24px -6px rgba(199, 161, 122, 0.35);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    box-shadow: none;
+  }
+}
+
+.animate-pin-jump {
+  animation: pin-jump 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
 }

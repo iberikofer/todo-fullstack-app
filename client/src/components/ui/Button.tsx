@@ -20,12 +20,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const baseStyles =
-      'inline-flex items-center justify-center font-medium transition-all duration-150 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none cursor-pointer';
+      'inline-flex items-center justify-center font-medium transition-all duration-150 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.96] hover:shadow-sm disabled:opacity-50 disabled:pointer-events-none disabled:transform-none cursor-pointer select-none';
 
     const sizeStyles = {
-      sm: 'text-xs px-3 py-1.5 rounded-lg gap-1.5',
-      md: 'text-sm px-4 py-2.5 rounded-xl gap-2',
-      lg: 'text-base px-5 py-3 rounded-xl gap-2.5',
+      sm: 'text-xs px-3 py-1.5 rounded-md gap-1.5',
+      md: 'text-sm px-4 py-2.5 rounded-md gap-2',
+      lg: 'text-base px-5 py-3 rounded-md gap-2.5',
     };
 
     const variantStyles = {

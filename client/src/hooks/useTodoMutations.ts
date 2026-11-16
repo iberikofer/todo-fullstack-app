@@ -5,6 +5,7 @@ import { Todo, TodoStatus } from '@/types';
 export interface CreateTodoPayload {
   title: string;
   description?: string;
+  isPinned?: boolean;
 }
 
 export interface UpdateTodoPayload {
@@ -12,6 +13,7 @@ export interface UpdateTodoPayload {
   title?: string;
   description?: string | null;
   status?: TodoStatus;
+  isPinned?: boolean;
 }
 
 export const useCreateTodo = () => {

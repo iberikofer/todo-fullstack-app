@@ -14,6 +14,7 @@ export const createTodoSchema = z.object({
     .trim()
     .max(1000, 'Description cannot exceed 1000 characters')
     .optional(),
+  isPinned: z.boolean().optional(),
 });
 
 export const updateTodoSchema = z
@@ -31,15 +32,17 @@ export const updateTodoSchema = z
       .nullable()
       .optional(),
     status: TodoStatusEnum.optional(),
+    isPinned: z.boolean().optional(),
   })
   .refine(
     data =>
       data.title !== undefined ||
       data.description !== undefined ||
-      data.status !== undefined,
+      data.status !== undefined ||
+      data.isPinned !== undefined,
     {
       message:
-        'At least one field (title, description, or status) must be provided to update',
+        'At least one field (title, description, status, or isPinned) must be provided to update',
     },
   );
 
@@ -50,7 +53,7 @@ export const todoQuerySchema = z.object({
     .number()
     .int()
     .min(1)
-    .max(50, 'Limit cannot exceed 50')
+    .max(100, 'Limit cannot exceed 100')
     .default(10),
   search: z.string().trim().optional(),
 });

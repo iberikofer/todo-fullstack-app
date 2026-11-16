@@ -63,18 +63,13 @@ export const useRegister = () => {
 };
 
 export const useLogout = () => {
-  const queryClient = useQueryClient();
-  const router = useRouter();
-
   return useMutation({
     mutationFn: async () => {
       const res = await api.post<{ message: string }>('/auth/logout');
       return res.data;
     },
     onSuccess: () => {
-      queryClient.setQueryData(['me'], null);
-      queryClient.removeQueries({ queryKey: ['todos'] });
-      router.push('/login');
+      window.location.replace('/login');
     },
   });
 };

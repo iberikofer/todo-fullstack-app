@@ -36,3 +36,6 @@ Thumbs.db
 # Note: Keep migrations in git, ignore sqlite files if any
 *.db
 *.db-journal
+
+# Internal assessment notes
+TODO_PLAN.md

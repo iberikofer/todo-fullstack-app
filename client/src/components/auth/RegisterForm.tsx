@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useRegister } from '@/hooks/useAuth';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
+import BrandLogo from '@/components/ui/BrandLogo';
 
 const registerFormSchema = z
   .object({
@@ -49,11 +50,9 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto rounded-2xl bg-white p-8 shadow-sm border border-[#22333B]/10">
-      <div className="text-center mb-6">
-        <div className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-[#5E8B7E]/15 text-[#5E8B7E] font-bold text-lg mb-3">
-          ✓
-        </div>
+    <div className="w-full max-w-md mx-auto rounded-lg bg-white p-8 shadow-sm border border-[#22333B]/10">
+      <div className="text-center mb-6 flex flex-col items-center">
+        <BrandLogo className="w-11 h-11 rounded-md shadow-xs mb-3" />
         <h1 className="text-2xl font-bold tracking-tight text-[#22333B]">
           Create Account
         </h1>
@@ -63,7 +62,7 @@ export default function RegisterForm() {
       </div>
 
       {error && (
-        <div className="mb-5 rounded-xl bg-rose-50 border border-rose-200 p-3.5 text-xs text-rose-700 flex items-start gap-2">
+        <div className="mb-5 rounded-md bg-rose-50 border border-rose-200 p-3.5 text-xs text-rose-700 flex items-start gap-2">
           <span className="font-semibold text-rose-800">Error:</span>
           <span>{error.message}</span>
         </div>

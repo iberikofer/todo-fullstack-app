@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { X } from 'lucide-react';
+import { X, Pin } from 'lucide-react';
 import { Todo, TodoStatus } from '@/types';
 import { useCreateTodo, useUpdateTodo } from '@/hooks/useTodoMutations';
 import Button from '@/components/ui/Button';
@@ -22,6 +22,7 @@ const todoFormSchema = z.object({
     .max(1000, 'Description cannot exceed 1000 characters')
     .optional(),
   status: z.enum(['TODO', 'IN_PROGRESS', 'DONE']),
+  isPinned: z.boolean().optional(),
 });
 
 type TodoFormData = z.infer<typeof todoFormSchema>;
@@ -30,12 +31,14 @@ export interface TodoFormModalProps {
   isOpen: boolean;
   onClose: () => void;
   todoToEdit?: Todo | null;
+  onTaskCreated?: (newTodoId: string) => void;
 }
 
 export default function TodoFormModal({
   isOpen,
   onClose,
   todoToEdit,
+  onTaskCreated,
 }: TodoFormModalProps) {
   const isEditing = !!todoToEdit;
   const { mutate: createTodo, isPending: isCreating } = useCreateTodo();
@@ -53,6 +56,7 @@ export default function TodoFormModal({
       title: '',
       description: '',
       status: 'TODO',
+      isPinned: false,
     },
   });
 
@@ -62,12 +66,14 @@ export default function TodoFormModal({
         title: todoToEdit.title,
         description: todoToEdit.description || '',
         status: todoToEdit.status,
+        isPinned: todoToEdit.isPinned,
       });
     } else {
       reset({
         title: '',
         description: '',
         status: 'TODO',
+        isPinned: false,
       });
     }
   }, [todoToEdit, reset, isOpen]);
@@ -92,6 +98,7 @@ export default function TodoFormModal({
           title: data.title,
           description: data.description || null,
           status: data.status as TodoStatus,
+          isPinned: data.isPinned ?? false,
         },
         {
           onSuccess: () => {
@@ -105,11 +112,15 @@ export default function TodoFormModal({
         {
           title: data.title,
           description: data.description || undefined,
+          isPinned: data.isPinned ?? false,
         },
         {
-          onSuccess: () => {
+          onSuccess: createdTodo => {
             onClose();
             reset();
+            if (createdTodo?.id && onTaskCreated) {
+              onTaskCreated(createdTodo.id);
+            }
           },
         },
       );
@@ -118,14 +129,14 @@ export default function TodoFormModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#22333B]/40 backdrop-blur-xs transition-opacity animate-in fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#22333B]/25 backdrop-blur-[1px] transition-opacity animate-in fade-in"
       onClick={e => {
         if (e.target === e.currentTarget) onClose();
       }}
       role="dialog"
       aria-modal="true"
     >
-      <div className="w-full max-w-lg rounded-2xl bg-white p-6 sm:p-7 shadow-lg border border-[#22333B]/10 text-[#22333B] relative animate-in zoom-in-95 duration-150">
+      <div className="w-full max-w-lg rounded-lg bg-white p-6 sm:p-7 shadow-lg border border-[#22333B]/10 text-[#22333B] relative animate-in zoom-in-95 duration-150">
         <div className="flex items-center justify-between pb-4 border-b border-[#22333B]/8 mb-5">
           <h2 className="text-xl font-bold tracking-tight text-[#22333B]">
             {isEditing ? 'Edit Task' : 'Create New Task'}
@@ -133,7 +144,7 @@ export default function TodoFormModal({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-[#22333B]/60 hover:text-[#22333B] hover:bg-[#22333B]/5 transition-colors cursor-pointer"
+            className="p-1.5 rounded-md text-[#22333B]/60 hover:text-[#22333B] hover:bg-[#22333B]/5 transition-colors cursor-pointer"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -160,7 +171,7 @@ export default function TodoFormModal({
               id="description"
               rows={3}
               placeholder="Add key notes, context, or checklist details..."
-              className="w-full px-3.5 py-2.5 rounded-xl bg-white text-[#22333B] placeholder:text-[#22333B]/35 border border-[#22333B]/15 hover:border-[#22333B]/30 focus:border-[#5E8B7E] focus:ring-2 focus:ring-[#5E8B7E]/20 text-sm transition-all duration-150 outline-none resize-none"
+              className="w-full px-3.5 py-2.5 rounded-md bg-white text-[#22333B] placeholder:text-[#22333B]/35 border border-[#22333B]/15 hover:border-[#22333B]/30 focus:border-[#5E8B7E] focus:ring-2 focus:ring-[#5E8B7E]/20 text-sm transition-all duration-150 outline-none resize-none"
               {...register('description')}
             />
             {errors.description && (
@@ -180,7 +191,7 @@ export default function TodoFormModal({
               </label>
               <select
                 id="status"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-white text-[#22333B] border border-[#22333B]/15 hover:border-[#22333B]/30 focus:border-[#5E8B7E] focus:ring-2 focus:ring-[#5E8B7E]/20 text-sm transition-all duration-150 outline-none cursor-pointer"
+                className="w-full px-3.5 py-2.5 rounded-md bg-white text-[#22333B] border border-[#22333B]/15 hover:border-[#22333B]/30 focus:border-[#5E8B7E] focus:ring-2 focus:ring-[#5E8B7E]/20 text-sm transition-all duration-150 outline-none cursor-pointer"
                 {...register('status')}
               >
                 <option value="TODO">To Do</option>
@@ -189,6 +200,19 @@ export default function TodoFormModal({
               </select>
             </div>
           )}
+
+          {/* Pin Task Checkbox */}
+          <label className="flex items-center gap-2.5 pt-1 text-xs font-semibold text-[#22333B] cursor-pointer select-none">
+            <input
+              type="checkbox"
+              {...register('isPinned')}
+              className="w-4 h-4 rounded text-[#C7A17A] border-[#22333B]/20 focus:ring-[#C7A17A] accent-[#C7A17A] cursor-pointer"
+            />
+            <span className="flex items-center gap-1.5 text-[#22333B]/80">
+              <Pin className="w-3.5 h-3.5 text-[#C7A17A]" />
+              Pin this task to top
+            </span>
+          </label>
 
           <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#22333B]/8 mt-6">
             <Button

@@ -35,7 +35,7 @@ export default function TodoList({
         {[1, 2, 3, 4].map(idx => (
           <div
             key={idx}
-            className="rounded-2xl bg-white p-5 border border-[#22333B]/8 animate-pulse flex items-start gap-4"
+            className="rounded-lg bg-white p-5 border border-[#22333B]/8 animate-pulse flex items-start gap-4"
           >
             <div className="w-5 h-5 rounded-full bg-[#22333B]/10 shrink-0 mt-0.5" />
             <div className="flex-1 space-y-2">
@@ -63,8 +63,8 @@ export default function TodoList({
     };
 
     return (
-      <div className="rounded-2xl bg-white border border-[#22333B]/10 p-12 text-center shadow-xs">
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#5E8B7E]/10 text-[#5E8B7E] mb-4">
+      <div className="rounded-lg bg-white border border-[#22333B]/10 p-12 text-center shadow-xs">
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-md bg-[#5E8B7E]/10 text-[#5E8B7E] mb-4">
           <CheckCircle className="w-7 h-7" />
         </div>
         <h3 className="text-lg font-bold text-[#22333B] tracking-tight">
@@ -93,8 +93,13 @@ export default function TodoList({
   return (
     <div className="space-y-4">
       <div className="space-y-3">
-        {todos.map(todo => (
-          <TodoItem key={todo.id} todo={todo} onEdit={onEdit} />
+        {todos.map((todo, idx) => (
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onEdit={onEdit}
+            style={{ animationDelay: `${Math.min(idx * 65, 390)}ms` }}
+          />
         ))}
       </div>
 

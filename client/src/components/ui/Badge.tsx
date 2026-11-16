@@ -43,7 +43,7 @@ export const Badge: React.FC<BadgeProps> = ({
       className={`inline-flex items-center font-medium rounded-full border tracking-wide select-none ${sizeClasses} ${config.containerStyles} ${className}`}
     >
       <span
-        className={`w-1.5 h-1.5 rounded-full ${config.dotColor}`}
+        className={`w-2 h-2 rounded-full ${config.dotColor}`}
         aria-hidden="true"
       />
       {config.label}

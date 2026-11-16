@@ -12,6 +12,7 @@ export interface Todo {
   title: string;
   description?: string | null;
   status: TodoStatus;
+  isPinned: boolean;
   userId: string;
   createdAt: string;
   updatedAt: string;
