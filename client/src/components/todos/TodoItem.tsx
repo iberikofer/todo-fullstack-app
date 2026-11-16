@@ -18,10 +18,9 @@ import DeleteConfirmModal from '@/components/todos/DeleteConfirmModal';
 export interface TodoItemProps {
   todo: Todo;
   onEdit: (todo: Todo) => void;
-  style?: React.CSSProperties;
 }
 
-export default function TodoItem({ todo, onEdit, style }: TodoItemProps) {
+export default function TodoItem({ todo, onEdit }: TodoItemProps) {
   const { mutate: updateTodo, isPending: isUpdating } = useUpdateTodo();
   const { mutate: deleteTodo, isPending: isDeleting } = useDeleteTodo();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -78,13 +77,12 @@ export default function TodoItem({ todo, onEdit, style }: TodoItemProps) {
 
   return (
     <div
-      style={style}
       className={`group relative rounded-lg bg-white p-5 border transition-all duration-300 shadow-xs hover:shadow-md hover:-translate-y-0.5 ${
         isExiting
           ? 'animate-task-swipe-right pointer-events-none'
           : isPinPopping
             ? 'animate-pin-jump ring-2 ring-[#C7A17A]/60'
-            : 'animate-card-cascade'
+            : ''
       } ${
         todo.status === 'DONE'
           ? 'border-[#22333B]/8 border-l-4 border-l-[#5E8B7E] bg-white/70 opacity-90'

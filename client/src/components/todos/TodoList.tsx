@@ -93,13 +93,8 @@ export default function TodoList({
   return (
     <div className="space-y-4">
       <div className="space-y-3">
-        {todos.map((todo, idx) => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            onEdit={onEdit}
-            style={{ animationDelay: `${Math.min(idx * 65, 390)}ms` }}
-          />
+        {todos.map(todo => (
+          <TodoItem key={todo.id} todo={todo} onEdit={onEdit} />
         ))}
       </div>
 
