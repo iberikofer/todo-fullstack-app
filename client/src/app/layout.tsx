@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TaskFlow | Modern Full-Stack TODO App",
+  title: "TODO App",
   description:
-    "A secure and elegant task management application built with Next.js 15, Express, and PostgreSQL",
+    "Full-Stack TODO application built with Next.js 15, Express, and PostgreSQL",
 };
 
 export default function RootLayout({
